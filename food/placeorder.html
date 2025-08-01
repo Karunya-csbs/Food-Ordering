@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Place Order | FlavorFiesta</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to right, #ffd8b3, #fff0e1);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 30px;
+    }
+
+    .form-wrapper {
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      border-radius: 20px;
+      padding: 40px;
+      max-width: 500px;
+      width: 100%;
+      animation: fadeIn 0.6s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h1 {
+      text-align: center;
+      color: #ff5722;
+      font-size: 30px;
+      margin-bottom: 30px;
+    }
+
+    label {
+      display: block;
+      margin-top: 20px;
+      font-weight: 500;
+      color: #444;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      padding: 12px;
+      margin-top: 8px;
+      font-size: 15px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      background: #fffefc;
+      transition: border-color 0.3s;
+    }
+
+    input:focus, textarea:focus, select:focus {
+      border-color: #ff7043;
+      outline: none;
+    }
+
+    .order-summary {
+      background: #fffaf0;
+      border: 1px dashed #ffc107;
+      padding: 15px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+    }
+
+    .order-summary h3 {
+      margin: 0 0 10px;
+      font-size: 20px;
+      color: #d84315;
+    }
+
+    .order-summary ul {
+      margin: 0;
+      padding-left: 20px;
+      font-size: 15px;
+      color: #444;
+    }
+
+    .order-summary strong {
+      color: #2e7d32;
+    }
+
+    .submit-btn {
+      width: 100%;
+      background-color: #ff7043;
+      color: white;
+      border: none;
+      padding: 14px;
+      font-size: 16px;
+      border-radius: 10px;
+      margin-top: 25px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .submit-btn:hover {
+      background-color: #e65100;
+    }
+
+    .message {
+      text-align: center;
+      margin-top: 20px;
+      color: green;
+      font-size: 16px;
+      display: none;
+    }
+
+    .back-link {
+      display: block;
+      text-align: center;
+      margin-top: 20px;
+      text-decoration: none;
+      color: #ff5722;
+      font-size: 15px;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 600px) {
+      .form-wrapper {
+        padding: 25px;
+      }
+
+      h1 {
+        font-size: 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="form-wrapper">
+    <h1>🍽️ Place Your Order</h1>
+
+    <div class="order-summary" id="cartSummary">
+      <!-- Cart summary will be loaded here -->
+    </div>
+
+    <form id="orderForm">
+      <label for="name">Full Name</label>
+      <input type="text" id="name" required>
+
+      <label for="mobile">Mobile Number</label>
+      <input type="tel" id="mobile" pattern="[0-9]{10}" required>
+
+      <label for="address">Delivery Address</label>
+      <textarea id="address" rows="3" required></textarea>
+
+      <label for="payment">Payment Method</label>
+      <select id="payment" required>
+        <option value="">-- Select --</option>
+        <option value="COD">Cash on Delivery</option>
+        <option value="UPI">UPI</option>
+        <option value="Card">Credit/Debit Card</option>
+      </select>
+
+      <button type="submit" class="submit-btn">✅ Confirm Order</button>
+      <div class="message" id="successMsg">🎉 Your order has been placed! Redirecting...</div>
+    </form>
+
+    <a href="cart.html" class="back-link">🔙 Back to Cart</a>
+  </div>
+
+  <script>
+    function showCartSummary() {
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      const container = document.getElementById("cartSummary");
+
+      if (cart.length === 0) {
+        container.innerHTML = "<h3>No items in cart.</h3>";
+        return;
+      }
+
+      let html = "<h3>🧾 Your Order Summary:</h3><ul>";
+      let total = 0;
+      cart.forEach(item => {
+        html += `<li>${item.name} × ${item.quantity} = ₹${item.total}</li>`;
+        total += item.total;
+      });
+      html += `</ul><p><strong>Total: ₹${total}</strong></p>`;
+      container.innerHTML = html;
+    }
+
+    showCartSummary();
+
+    document.getElementById("orderForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      localStorage.removeItem("cart");
+      document.getElementById("successMsg").style.display = "block";
+      setTimeout(() => {
+        window.location.href = "index.html";
+      }, 3000);
+    });
+  </script>
+
+</body>
+</html>

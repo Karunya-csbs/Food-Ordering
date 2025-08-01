@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>🛒 Your Cart</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to right, #ffecd2, #fcb69f);
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+
+    .cart-container {
+      background: #fff;
+      width: 100%;
+      max-width: 850px;
+      padding: 35px;
+      border-radius: 18px;
+      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+      color: #e65100;
+      margin-bottom: 30px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+
+    th, td {
+      padding: 14px 12px;
+      text-align: center;
+      font-size: 16px;
+    }
+
+    th {
+      background-color: #ffe0b2;
+      color: #bf360c;
+    }
+
+    tr:nth-child(even) {
+      background-color: #fff8f0;
+    }
+
+    .total-line {
+      text-align: right;
+      font-size: 20px;
+      font-weight: bold;
+      color: #2e7d32;
+      margin: 20px 0;
+    }
+
+    .btn-group {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 30px;
+    }
+
+    .btn {
+      padding: 14px 24px;
+      font-size: 16px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .clear-btn {
+      background-color: #ef5350;
+      color: white;
+    }
+
+    .clear-btn:hover {
+      background-color: #c62828;
+    }
+
+    .order-btn {
+      background-color: #43a047;
+      color: white;
+    }
+
+    .order-btn:hover {
+      background-color: #2e7d32;
+    }
+
+    .empty-msg {
+      text-align: center;
+      font-size: 18px;
+      color: #777;
+      padding: 40px 0;
+    }
+
+    @media (max-width: 600px) {
+      .btn-group {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      th, td {
+        font-size: 14px;
+        padding: 10px;
+      }
+
+      .total-line {
+        font-size: 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="cart-container">
+    <h1>🛒 Your Cart</h1>
+    <div id="cartContent"></div>
+    <div class="btn-group">
+      <button class="btn clear-btn" onclick="clearCart()">🗑️ Clear Cart</button>
+      <button class="btn order-btn" onclick="window.location.href='placeorder.html'">📝 Proceed to Place Order</button>
+    </div>
+  </div>
+
+  <script>
+    function loadCart() {
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      const container = document.getElementById("cartContent");
+
+      if (cart.length === 0) {
+        container.innerHTML = '<p class="empty-msg">🛍️ Your cart is empty. Start adding delicious items!</p>';
+        return;
+      }
+
+      let html = `
+        <table>
+          <tr>
+            <th>Dish</th>
+            <th>Price</th>
+            <th>Qty</th>
+            <th>Total</th>
+          </tr>
+      `;
+      let grandTotal = 0;
+
+      cart.forEach(item => {
+        html += `
+          <tr>
+            <td>${item.name}</td>
+            <td>₹${item.price}</td>
+            <td>${item.quantity}</td>
+            <td>₹${item.total}</td>
+          </tr>
+        `;
+        grandTotal += item.total;
+      });
+
+      html += `</table>`;
+      html += `<div class="total-line">Grand Total: ₹${grandTotal}</div>`;
+      container.innerHTML = html;
+    }
+
+    function clearCart() {
+      if (confirm("Are you sure you want to clear the cart?")) {
+        localStorage.removeItem("cart");
+        loadCart();
+      }
+    }
+
+    loadCart();
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>FlavorFiesta | Welcome</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+                  url('https://images.unsplash.com/photo-1600891964599-f61ba0e24092') no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .login-container {
+      background: #ffffffee;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
+      text-align: center;
+      width: 90%;
+      max-width: 400px;
+    }
+
+    h1 {
+      color: #ff3e3e;
+      margin-bottom: 20px;
+      font-size: 32px;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background: linear-gradient(45deg, #ff3e3e, #ff914d);
+      border: none;
+      color: white;
+      font-size: 18px;
+      font-weight: bold;
+      border-radius: 8px;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: linear-gradient(45deg, #e53232, #ff731d);
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <h1>FlavorFiesta</h1>
+    <input type="text" id="username" placeholder="Enter your name" required />
+    <input type="tel" id="mobile" placeholder="Mobile number (10 digits)" pattern="[0-9]{10}" required />
+    <button onclick="goToMenu()">Explore Menu 🍽️</button>
+  </div>
+
+  <script>
+    function goToMenu() {
+      const username = document.getElementById('username').value.trim();
+      const mobile = document.getElementById('mobile').value.trim();
+
+      if (username === "" || mobile.length !== 10 || isNaN(mobile)) {
+        alert("Please enter valid name and 10-digit mobile number.");
+        return;
+      }
+
+      localStorage.setItem("username", username);
+      localStorage.setItem("mobile", mobile);
+      window.location.href = "menu.html"; // redirects to menu page
+    }
+  </script>
+</body>
+</html>

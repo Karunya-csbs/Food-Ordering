@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>South Indian Menu</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #fffaf2;
+    }
+
+    header {
+      background: linear-gradient(90deg, #ff7043, #ff9800);
+      color: white;
+      padding: 25px;
+      text-align: center;
+      font-size: 32px;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 30px;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    }
+
+    .item-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #fff7f0;
+      margin: 20px 0;
+      padding: 20px;
+      border-radius: 14px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      gap: 20px;
+    }
+
+    .item-card img {
+      width: 80px;
+      height: 80px;
+      border-radius: 12px;
+      object-fit: cover;
+      border: 2px solid #f2e0d8;
+    }
+
+    .item-details {
+      flex: 1;
+    }
+
+    .item-details h3 {
+      margin: 0;
+      font-size: 20px;
+      color: #333;
+    }
+
+    .item-details p {
+      margin: 5px 0;
+      font-size: 14px;
+      color: #666;
+    }
+
+    .price {
+      font-size: 18px;
+      font-weight: bold;
+      color: #e65100;
+    }
+
+    .qty {
+      width: 60px;
+      padding: 6px;
+      font-size: 16px;
+      text-align: center;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    .add-btn {
+      background: #ff5722;
+      color: white;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 15px;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    .add-btn:hover {
+      background: #e64a19;
+    }
+
+    .view-cart-btn {
+      display: block;
+      text-align: center;
+      margin-top: 40px;
+      background: #43a047;
+      color: white;
+      padding: 14px 28px;
+      text-decoration: none;
+      border-radius: 10px;
+      font-size: 17px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+    }
+
+    .view-cart-btn:hover {
+      background: #388e3c;
+    }
+  </style>
+</head>
+<body>
+
+  <header>South Indian Dishes 🍛</header>
+  <div class="container">
+
+    <div class="item-card">
+      <img src="images/idli.jpg" alt="Idli">
+      <div class="item-details">
+        <h3>Idli</h3>
+        <p>Soft steamed rice cakes served with chutney & sambar.</p>
+        <div class="price">₹30</div>
+      </div>
+      <input type="number" class="qty" id="qty-idli" min="0" value="0">
+      <button class="add-btn" onclick="addToCart('Idli', 30, 'qty-idli')">Add</button>
+    </div>
+
+    <div class="item-card">
+      <img src="images/dosa.jpg" alt="Dosa">
+      <div class="item-details">
+        <h3>Dosa</h3>
+        <p>Golden crispy pancake made from rice and lentils.</p>
+        <div class="price">₹50</div>
+      </div>
+      <input type="number" class="qty" id="qty-dosa" min="0" value="0">
+      <button class="add-btn" onclick="addToCart('Dosa', 50, 'qty-dosa')">Add</button>
+    </div>
+
+  
+
+    <div class="item-card">
+      <img src="images/upma.jpg" alt="Upma">
+      <div class="item-details">
+        <h3>Upma</h3>
+        <p>Roasted semolina cooked with vegetables & spices.</p>
+        <div class="price">₹35</div>
+      </div>
+      <input type="number" class="qty" id="qty-upma" min="0" value="0">
+      <button class="add-btn" onclick="addToCart('Upma', 35, 'qty-upma')">Add</button>
+    </div>
+
+    <div class="item-card">
+      <img src="images/sambar rice.jpg" alt="Sambar Rice">
+      <div class="item-details">
+        <h3>Sambar Rice</h3>
+        <p>Rice mixed with spicy sambar and vegetables.</p>
+        <div class="price">₹55</div>
+      </div>
+      <input type="number" class="qty" id="qty-sambar" min="0" value="0">
+      <button class="add-btn" onclick="addToCart('Sambar Rice', 55, 'qty-sambar')">Add</button>
+    </div>
+
+    <a href="cart.html" class="view-cart-btn">🛒 View Cart</a>
+  </div>
+
+  <script>
+    function addToCart(name, price, qtyId) {
+      const qty = parseInt(document.getElementById(qtyId).value);
+      if (qty > 0) {
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const existing = cart.find(item => item.name === name);
+        if (existing) {
+          existing.quantity += qty;
+          existing.total = existing.quantity * price;
+        } else {
+          cart.push({ name, price, quantity: qty, total: qty * price });
+        }
+        localStorage.setItem('cart', JSON.stringify(cart));
+        alert(`${qty} x ${name} added to cart!`);
+        document.getElementById(qtyId).value = 0;
+      } else {
+        alert("Please enter quantity more than 0.");
+      }
+    }
+  </script>
+
+</body>
+</html>

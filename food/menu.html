@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>FlavorFiesta | Menu</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
+  
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #fff3e6;
+    }
+
+    header {
+      background: linear-gradient(90deg, #ff3e3e, #ff914d);
+      color: white;
+      padding: 20px;
+      text-align: center;
+      font-size: 28px;
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+
+    #welcome {
+      text-align: center;
+      margin: 20px;
+      font-size: 22px;
+      color: #444;
+    }
+
+    .genre-section {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 25px;
+      padding: 30px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .genre-card {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      border-radius: 16px;
+      overflow: hidden;
+      cursor: pointer;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+      transition: transform 0.3s ease;
+    }
+
+    .genre-card:hover {
+      transform: scale(1.04);
+    }
+
+    .genre-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .genre-card h3 {
+      position: absolute;
+      bottom: 10px;
+      left: 10px;
+      color: #fff;
+      background: rgba(0, 0, 0, 0.5);
+      padding: 6px 12px;
+      border-radius: 10px;
+      font-size: 18px;
+      margin: 0;
+    }
+
+    @media (max-width: 600px) {
+      .genre-card h3 {
+        font-size: 16px;
+        padding: 5px 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>🍽️ FlavorFiesta - Pick Your Flavor</header>
+  <div id="welcome">Welcome👋</div>
+  <section class="genre-section">
+           <div class="genre-card" onclick="window.location.href='SouthIndian.html'" style="cursor: pointer;">
+             <img src="images/southIndian.jpg" alt="SouthIndian">
+            <h3>South Indian 🍛</h3>
+        </div>
+
+<div class="genre-card" onclick="window.location.href='North Indian.html'" style="cursor: pointer;">
+    <img src="images/North Indian.jpg" alt="North Indian">
+    <h3>North Indian 🍲</h3>
+  </div>
+
+  <div class="genre-card" onclick="window.location.href='Chinese.html'" style="cursor: pointer;">
+    <img src="images/chinese.jpg" alt="Chinese">
+    <h3>Chinese 🍜</h3>
+  </div>
+
+  <div class="genre-card" onclick="window.location.href='Fast Food.html'" style="cursor: pointer;">
+    <img src="images/Fast Food.jpg" alt="Fast Food">
+    <h3>Fast Food 🍔</h3>
+  </div>
+
+  
+
+</body>
+</html>
